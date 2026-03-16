@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,19 +15,28 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RowColumnPage(),
+      home: const CounterApp(),
     );
   }
 }
 
-class RowColumnPage extends StatelessWidget {
-  const RowColumnPage({super.key});
+class CounterApp extends StatefulWidget {
+  const CounterApp({super.key});
+
+  @override
+  _CounterAppState createState() => _CounterAppState();
+}
+
+class _CounterAppState extends State<CounterApp> {
+  int _counter = 0; 
+  void _incrementCounter() {
+    setState(() {
+      _counter++; 
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQueryData = MediaQuery.of(context);
-    double screenWidth = mediaQueryData.size.width;
-    double screenHeight = mediaQueryData.size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -47,8 +55,8 @@ class RowColumnPage extends StatelessWidget {
               aspectRatio: 1.0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
-                padding: EdgeInsets.all(20.0),
+                margin: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
+                padding: const EdgeInsets.all(20.0),
                 color: Colors.lightBlue[100],
                 child: Center(
                   child: Image.network(
@@ -62,23 +70,47 @@ class RowColumnPage extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
-            padding: EdgeInsets.all(20.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 10.0),
+            padding: const EdgeInsets.all(20.0),
             color: Colors.pink[200],
-            child: Text('What image is that', style: TextStyle(fontSize: 16)),
+            child: const Text('What image is that', style: TextStyle(fontSize: 16)),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.yellow[200],
-            padding: EdgeInsets.all(20.0),
-            margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
-            child: Row(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Column(children: [Icon(Icons.food_bank), Text("Food")]),
                 Column(children: [Icon(Icons.landscape), Text("Scenery")]),
                 Column(children: [Icon(Icons.people), Text("People")]),
+              ],
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.cyan[100],
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Counter here: $_counter',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[200],
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: IconButton(
+                    onPressed: _incrementCounter,
+                    icon: const Icon(Icons.add),
+                  ),
+                ),
               ],
             ),
           ),
